@@ -1,0 +1,107 @@
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form (ngSubmit)="submit()" #registerForm="ngForm">
+          <!-- alumnoData -->
+          <div
+            id="alumno-data"
+            ngModelGroup="alumnoData"
+            #alumnoData = "ngModelGroup"
+            >
+                <!-- nombre -->
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input 
+                        type="text"          
+                        class="form-control"
+                        ngModel 
+                        #nombre = "ngModel"
+                        name="nombre"
+                        required
+                    >
+                </div>
+                <!-- msg validator -->
+                <span *ngIf="!nombre.valid && nombre.touched" class="help-block"> ¡Ingresar un nombre valido!</span>                     
+                <!-- apellido -->
+                <div class="form-group">
+                    <label for="apellido">Apellido</label>
+                    <input 
+                        type="text"          
+                        class="form-control"
+                        ngModel 
+                        #apellido = "ngModel"
+                        name="apellido"     
+                        required
+                    >
+                </div>
+                <!-- msg validator -->
+                <span *ngIf="!apellido.valid && apellido.touched" class="help-block">¡Ingresar un apellido valido!</span>     
+                <!-- edad -->
+                <div class="form-group">
+                    <label for="edad">Edad</label>
+                    <input 
+                        type="number"          
+                        class="form-control"
+                        ngModel 
+                        #edad = "ngModel"
+                        name="edad"     
+                        required
+                        min="6"
+                        max="18"
+                    >
+                </div>
+                <!-- msg validator -->
+                <span *ngIf="!edad.valid && edad.touched" class="help-block">¡Ingresar una edad valida!</span>                                                 
+                <!-- email -->
+                <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email"          
+                    class="form-control"
+                    ngModel 
+                    #email = "ngModel"
+                    name="email"
+                    email
+                    required
+                    >
+                </div>
+                <!-- msg validator -->
+                <span *ngIf="!email.valid && email.touched" class="help-block">¡Ingresar un email valido!</span>         
+            </div>
+          <!-- msg UserData validator -->
+          <span *ngIf="!alumnoData.valid && alumnoData.touched" class="help-block">¡Datos del alumno invalidos</span>
+          <!-- genero -->
+          <div class="form-group">
+            <label for="genero">Seleccionar genero</label>
+            <select 
+              class="form-control"
+              name="genero" 
+              id="genero"  
+              [ngModel]="defaultGenero"     
+            >
+              <option 
+              *ngFor="let genero of generos"
+              [value]="genero"
+              >{{ genero }}</option>
+          </select>
+          </div>
+          <!-- button -->
+          <button 
+            [disabled]="!registerForm.valid"
+            type ="submit" 
+            class="btn btn-primary my-2">Registrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div 
+  *ngIf="isSubmitted"
+  class="row">
+  <hr>
+  <h1>Alumno registrado</h1>
+  <p>Nombre: {{ alumno.nombre }} </p>
+  <p>Apellido: {{ alumno.apellido }}</p>
+  <p>Edad: {{ alumno.edad }}</p>
+  <p>Genero: {{ alumno.genero }}</p>
+</div>
